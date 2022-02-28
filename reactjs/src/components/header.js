@@ -1,9 +1,11 @@
-import React from "react";
-import {makeStyles, Typography } from "@material-ui/core";
+import React,{ useState } from "react";
+import { makeStyles, Typography } from "@material-ui/core";
 import InputLabel from "@material-ui/core/InputLabel";
 import MenuItem from "@material-ui/core/MenuItem";
 import FormControl from "@material-ui/core/FormControl";
 import Select from "@material-ui/core/Select";
+import AddIcon from '@material-ui/icons/Add';
+
 
 const useStyles = makeStyles( ( theme ) => ( {
     container: {
@@ -11,7 +13,8 @@ const useStyles = makeStyles( ( theme ) => ( {
         justifyContent: "space-between",
     },
     right: {
-        display: "flex"
+        display: "flex",
+        alignItems: "center"
     },
     formControl: {
         minWidth: 160,
@@ -39,10 +42,29 @@ const useStyles = makeStyles( ( theme ) => ( {
           background: "transparent",
         },
       },
+      Button: {
+        display: "flex",
+        padding: "15px",
+        marginLeft: "20px",
+        background: theme.palette.primary.dark,
+        borderRadius: "40px",
+        "&:hover":{
+          cursor: "pointer"
+        }
+      },
+      icon: {
+        color: "white",
+        marginLeft: "10px"
+      }
 } ) )
 
 const Header = () => {
     const classes = useStyles();
+    const [filterType,setFilterType] = useState('');
+    const handleChange = (event) => {
+      setFilterType(event.target.value)
+    }
+    console.log(filterType)
     const menuProps = {
         getContentAnchorEl: null,
         anchorOrigin: {
@@ -70,8 +92,8 @@ const Header = () => {
                         <Select
                             labelId="demo-simple-select-label"
                             id="demo-simple-select"
-                            // value={ filterType }
-                            // onChange={ handleChange }
+                            value={ filterType }
+                            onChange={ handleChange }
                             MenuProps={ menuProps }
                             inputProps={ inputProps }
                             classes={ {
@@ -84,7 +106,10 @@ const Header = () => {
                         </Select>
                     </FormControl>
                 </div>
-                <div className={ classes.Button }>Button</div>
+                <div className={ classes.Button }>
+                  <Typography>New Bills</Typography>
+                  <AddIcon classes={{ root: classes.icon }}/>
+                </div>
             </div>
         </div>
     );
