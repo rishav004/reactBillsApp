@@ -5,6 +5,7 @@ import MenuItem from "@material-ui/core/MenuItem";
 import FormControl from "@material-ui/core/FormControl";
 import Select from "@material-ui/core/Select";
 import AddIcon from '@material-ui/icons/Add';
+import FormDialog from "./formDialog";
 
 
 const useStyles = makeStyles( ( theme ) => ( {
@@ -61,6 +62,8 @@ const useStyles = makeStyles( ( theme ) => ( {
 const Header = () => {
     const classes = useStyles();
     const [filterType,setFilterType] = useState('');
+    const [open,setOpen] = useState(false);
+
     const handleChange = (event) => {
       setFilterType(event.target.value)
     }
@@ -106,10 +109,11 @@ const Header = () => {
                         </Select>
                     </FormControl>
                 </div>
-                <div className={ classes.Button }>
+                <div className={ classes.Button } onClick={() => setOpen(true)}>
                   <Typography>New Bills</Typography>
                   <AddIcon classes={{ root: classes.icon }}/>
                 </div>
+                <FormDialog open={open} setOpen={setOpen}/>
             </div>
         </div>
     );
